@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { MainLayout } from "../layouts/MainLayout";
 
-const MyContent = () => <div className=" text-white border-2 border-green-300"> MyContent </div>;
+const MyContentA = () => <div className=" text-white border-2 border-green-300"> MyContent 1 </div>;
+const MyContentB = () => <div className=" text-green-300 border-2 border-green-900"> MyContent 2 </div>;
 
 export default function Home() {
   return (
@@ -13,7 +14,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainLayout>
-        <MyContent />
+        <MyContentA />
+        <MyContentB />
       </MainLayout>
     </div>
   );

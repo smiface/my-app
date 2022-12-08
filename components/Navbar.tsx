@@ -1,4 +1,4 @@
-const MyContent = () => <div className=" text-white border-green-50 border-2"> MyContent 2</div>;
+const MyContent = () => <div className=" text-green-300 border-green-50 border-2"> MyContent 3</div>;
 
 export const Navbar: React.FC<{ links: { path: string; title: string }[] }> = ({
   links,
