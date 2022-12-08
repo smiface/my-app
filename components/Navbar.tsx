@@ -1,16 +1,13 @@
-const MyContent = () => <div className=" text-green-300 border-green-50 border-2"> MyContent 3</div>;
-
 export const Navbar: React.FC<{ links: { path: string; title: string }[] }> = ({
   links,
 }) => {
   return (
-    <nav className=" border-2 border-green-500 p-2 m-2 ">
+    <nav className="p-4">
       {links.map((link) => (
-        <a key={link.toString()} href={link.path} className="text-green-500 ">
+        <a key={link.toString()} href={link.path} className="text-slate-200 hover:text-slate-100 visited:text-slate-300 font-medium">
           {link.title}
         </a>
       ))}
-      <MyContent />
     </nav>
   );
 };
