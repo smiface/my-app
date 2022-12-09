@@ -1,8 +1,19 @@
+import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Loader } from "../components/Loader";
 import { MainLayout } from "../layouts/MainLayout";
 
-export default function Home() {
+export default function CatPage() {
+  const [catImage, setCatImage] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/hello")
+      .then((res) => setCatImage(res.data));
+  }, []);
+
   return (
     <div className="min-h-[100vh] bg-slate-900">
       <Head>
@@ -12,6 +23,16 @@ export default function Home() {
       </Head>
       <MainLayout>
         <h1>Cat</h1>
+        {catImage ? (
+          <Image
+            width={240}
+            height={163}
+            alt="cat img"
+            src={`data:image/png;base64,${catImage}`}
+          />
+        ) : (
+          <Loader />
+        )}
       </MainLayout>
     </div>
   );

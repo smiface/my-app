@@ -1,13 +1,21 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import fs from "fs";
+import path from "path";
+
+const filePath = path.resolve(".", "./pages/api/cat.jpg");
+const imageBuffer = fs.readFileSync(filePath);
+
+const x = Buffer.from(imageBuffer).toString("base64");
 
 type Data = {
-  name: string
-}
+  name: string;
+};
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  res.setHeader("Content-Type", "image/jpg");
+  setTimeout(() => {
+    res.send(x);
+  }, 1000);
 }
