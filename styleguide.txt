@@ -1,4 +1,4 @@
-coors
+colors
 bg-slate-900
 
 hover:text-slate-100 

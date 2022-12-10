@@ -1,10 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { file } from "./file";
 
-import fs from "fs";
-import path from "path";
+const users = file("./db/users.json");
 
-const filePath = path.resolve("./db/users.json");
-const users = fs.readFileSync(filePath);
+export interface IDbUserDto {
+  id: string;
+  role: string;
+  username: string;
+  login: string;
+  password: string;
+  firstName: string;
+  secondName: string;
+}
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.send(`users`);

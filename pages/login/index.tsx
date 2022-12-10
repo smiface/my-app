@@ -1,3 +1,4 @@
+import axios from "axios";
 import clsx from "clsx";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
@@ -6,7 +7,15 @@ export default function LoginPage() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const togglePasswordView = () => setShowPassword(!showPassword);
-  const submitLogin = (event: React.SyntheticEvent) => event.preventDefault();
+  const submitLogin = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    axios
+      .post(`http://localhost:3000/api/login`, {
+        login: loginRef?.current?.value && loginRef.current.value,
+        password: passwordRef?.current?.value && passwordRef.current.value,
+      })
+      .then((res) => console.log(res));
+  };
   useEffect(() => passwordRef?.current?.focus(), [showPassword]);
 
   const inputPasswordType = useMemo(() => (showPassword ? "text" : "password"), [showPassword]);
@@ -15,7 +24,7 @@ export default function LoginPage() {
   const textStyle = "text-slate-500 hover:text-slate-100";
   const outlineStyle = "outline-none hover:outline-none hover:outline-4 active:outline-none";
   const borderStyle = "border-2 border-slate-500 hover:border-slate-300 active:border-slate-100";
-  const st = `duration-200 bg-slate-900 rounded-md`;
+  const customStyle = `duration-200 bg-slate-900 rounded-md`;
 
   return (
     <form method="POST" className="w-[300px] flex flex-col space-y-2" onSubmit={submitLogin}>
@@ -23,14 +32,14 @@ export default function LoginPage() {
         type="text"
         placeholder="login"
         ref={loginRef}
-        className={clsx(st, textStyle, outlineStyle, borderStyle, "p-2")}
+        className={clsx(customStyle, textStyle, outlineStyle, borderStyle, "p-2")}
       />
       <div className="flex relative">
         <input
           type={inputPasswordType}
           placeholder={inputPasswordPlaceholder}
           ref={passwordRef}
-          className={clsx(st, textStyle, outlineStyle, borderStyle, " w-full p-2 border-slate-500")}
+          className={clsx(customStyle, textStyle, outlineStyle, borderStyle, " w-full p-2 border-slate-500")}
         />
         <button
           type="button"
@@ -40,7 +49,7 @@ export default function LoginPage() {
           {inputPasswordIcon}
         </button>
       </div>
-      <button type="submit" className={clsx(st, textStyle, borderStyle, "p-2 w-1/2")}>
+      <button type="submit" className={clsx(customStyle, textStyle, borderStyle, "p-2 w-1/2")}>
         login
       </button>
     </form>

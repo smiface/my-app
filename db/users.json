@@ -1,8 +1,11 @@
-{
-  "id": 1,
-  "role": "admin",
-  "username": "admin",
-  "password": "admin",
-  "firstName": "admin",
-  "secondName": "admin"
-}
+[
+  {
+    "id": 1,
+    "role": "admin",
+    "username": "admin",
+    "login": "admin",
+    "password": "admin",
+    "firstName": "admin",
+    "secondName": "admin"
+  }
+]
