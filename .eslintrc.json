@@ -1,3 +1,7 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "airbnb/base", "eslint-config-prettier"],
+  "rules": {
+    "prettier/prettier": ["error", { "printWidth": 120 }]
+  },
+  "plugins": ["eslint-plugin-prettier", "import"]
 }
