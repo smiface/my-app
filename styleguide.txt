@@ -1,0 +1,6 @@
+coors
+bg-slate-900
+
+hover:text-slate-100 
+text-slate-200 
+visited:text-slate-300
