@@ -1,11 +1,1 @@
-[
-  {
-    "id": 1,
-    "role": "admin",
-    "username": "admin",
-    "login": "admin",
-    "password": "admin",
-    "firstName": "admin",
-    "secondName": "admin"
-  }
-]
+[{"id":1,"role":"admin","username":"admin","login":"admin","password":"admin"},{"id":2,"role":"user","username":"admin","login":"admin1","password":"admin"},{"id":3,"role":"user","username":"admin","login":"admin2","password":"admin"},{"id":4,"role":"user","username":"admin","login":"admin3","password":"admin"},{"id":11,"role":"user","username":"admin","login":"undefined","password":"admin"},{"id":12,"role":"user","username":"admin","login":"ffzxc","password":"azxc"},{"id":13,"role":"user","username":"admin","login":"ffzxc","password":"azxc"},{"id":14,"role":"user","username":"admin","login":"ffzxc","password":"azxc"}]

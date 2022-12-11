@@ -1,16 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { file } from "./file";
+import { parsedFile } from "./file";
 
-const users = file("./db/users.json");
+const users = parsedFile("./db/users.json");
 
 export interface IDbUserDto {
-  id: string;
+  id: number;
   role: string;
   username: string;
   login: string;
   password: string;
-  firstName: string;
-  secondName: string;
+}
+
+export interface IDbUserToRegisterDto {
+  username: string;
+  login: string;
+  password: string;
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
