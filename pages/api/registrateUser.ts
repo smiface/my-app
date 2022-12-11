@@ -11,21 +11,20 @@ const mockeduser = {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   req.body = mockeduser;
-  const reg = req.body;
-  const hasFields = !!(reg.username && reg.login && reg.password);
+  const hasFields = !!(req.body.username && req.body.login && req.body.password);
   !hasFields && res.send("failed fields");
 
-  const userLoginValid = reg.login.length > 3;
+  const userLoginValid = req.body.login.length > 3;
   !userLoginValid && res.send("failed login length");
 
-  const userPasswordValid = reg.password.length > 3;
+  const userPasswordValid = req.body.password.length > 3;
   !userPasswordValid && res.send("failed password length");
 
   const users = parsedFile("./db/users.json");
-  const loginFree = !users.some((u: IDbUserDto) => u.login === reg.login);
+  const loginFree = !users.some((u: IDbUserDto) => u.login === req.body.login);
   !loginFree && res.send("failed login not free");
 
-  const safetyUser = { username: reg.username, login: reg.login, password: reg.password };
+  const safetyUser = { username: req.body.username, login: req.body.login, password: req.body.password };
   const newUser = { id: users[users.length - 1].id + 1, role: "user", ...safetyUser };
   const newUsers = [...users, newUser];
   const stringToSave = JSON.stringify(newUsers);
