@@ -7,6 +7,7 @@ export default function LoginPage() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const togglePasswordView = () => setShowPassword(!showPassword);
+  
   const submitLogin = (event: React.SyntheticEvent) => {
     event.preventDefault();
     axios
@@ -14,8 +15,16 @@ export default function LoginPage() {
         login: loginRef?.current?.value && loginRef.current.value,
         password: passwordRef?.current?.value && passwordRef.current.value,
       })
-      .then((res) => console.log(res));
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          console.log(res.data);
+          localStorage.setItem("refreshToken", res.data.refreshToken);
+          localStorage.setItem("sessionToken", res.data.sessionToken);
+        }
+      });
   };
+
   useEffect(() => passwordRef?.current?.focus(), [showPassword]);
 
   const inputPasswordType = useMemo(() => (showPassword ? "text" : "password"), [showPassword]);

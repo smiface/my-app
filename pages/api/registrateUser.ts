@@ -26,8 +26,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const safetyUser = { username: req.body.username, login: req.body.login, password: req.body.password };
   const newUser = { id: users[users.length - 1].id + 1, role: "user", ...safetyUser };
-  const newUsers = [...users, newUser];
-  const stringToSave = JSON.stringify(newUsers);
+  users.push(newUser);
+  const stringToSave = JSON.stringify(users);
   saveFile("./db/users.json", stringToSave);
   res.send("reg success");
 
