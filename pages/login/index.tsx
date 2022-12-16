@@ -18,7 +18,6 @@ export default function LoginPage() {
       .then((res) => {
         console.log(res);
         if (res.data.status === 200) {
-          console.log(res.data);
           localStorage.setItem("refreshToken", res.data.refreshToken);
           localStorage.setItem("sessionToken", res.data.sessionToken);
         }

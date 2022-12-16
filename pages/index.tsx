@@ -1,7 +1,9 @@
 import Head from "next/head";
+import { useEffect } from "react";
 import { MainLayout } from "../layouts/MainLayout";
 
 export default function Home() {
+
   return (
     <div className="min-h-[100vh] bg-slate-900">
       <Head>

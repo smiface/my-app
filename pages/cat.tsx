@@ -1,4 +1,5 @@
 import axios from "axios";
+import { nanoid } from "nanoid";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { CatImg } from "../components/CatImg";
@@ -37,7 +38,7 @@ export default function CatPage({ data }: { data: ICatData }) {
           <h1>Cat page</h1>
 
           {Object.entries(data).map((info) => (
-            <CatInfoLine info={info} />
+            <CatInfoLine key={nanoid()} info={info} />
           ))}
 
           {catImg ? <CatImg url={catImg} /> : <Loader />}

@@ -19,7 +19,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const stringToSave = JSON.stringify(tokens);
   saveFile("./db/tokens.json", stringToSave);
 
-  res.json({
+  res.send({
     status: 200,
     refreshToken,
     sessionToken,

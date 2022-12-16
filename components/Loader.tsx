@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 export const Loader = () => {
   const [dots, setDots] = useState<string>(".");
-
   useEffect(() => {
     setTimeout(() => {
       switch (dots) {
