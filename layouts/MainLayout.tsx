@@ -6,7 +6,7 @@ const links = [
 
 export const MainLayout: React.FC<{ children: any }> = ({ children }) => {
   return (
-    <div className=" ">
+    <div className=" w-[100vw] ">
       <Navbar links={links} />
       <div>{children}</div>
     </div>

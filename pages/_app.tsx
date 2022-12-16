@@ -14,13 +14,12 @@ import { observer } from "mobx-react-lite";
 // }
 
 export const AuthProvider: React.FC<{ children: any }> = observer(({ children }) => {
-
   useLayoutEffect(() => {
     RootStore.auth.tryAuthByToken();
   }, []);
 
   return (
-    <div className="min-h-[100vh] bg-slate-900 pl-4 font-medium text-slate-200 flex items-center justify-center">
+    <div className="w-100 h-screen bg-slate-900 font-medium text-slate-200">
       {RootStore.auth.loading && <Loader />}
       {!RootStore.auth.loading && RootStore.auth.isAuth && <>{children}</>}
       {!RootStore.auth.loading && !RootStore.auth.isAuth && <LoginPage />}
