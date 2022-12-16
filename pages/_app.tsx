@@ -14,7 +14,7 @@ import { observer } from "mobx-react-lite";
 // }
 
 export const AuthProvider: React.FC<{ children: any }> = observer(({ children }) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     RootStore.auth.tryAuthByToken();
   }, []);
 

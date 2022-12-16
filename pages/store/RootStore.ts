@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import { AuthStore } from "./Auth";
+import { AuthStore } from "./AuthStore";
+import { CatStore } from "./CatStore";
 
 class Store {
   constructor() {
@@ -7,6 +8,7 @@ class Store {
   }
 
   auth = new AuthStore(this);
+  cat = new CatStore(this);
 }
 
 export const RootStore = new Store();

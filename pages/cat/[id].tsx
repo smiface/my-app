@@ -1,11 +1,14 @@
 import axios from "axios";
+import { observer } from "mobx-react-lite";
 import { nanoid } from "nanoid";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { CatImg } from "../components/CatImg";
-import { CatInfoLine } from "../components/CatInfoLine";
-import { Loader } from "../components/Loader";
-import { MainLayout } from "../layouts/MainLayout";
+import { CatImg } from "../../components/CatImg";
+import { CatInfoLine } from "../../components/CatInfoLine";
+import { Loader } from "../../components/Loader";
+import { MainLayout } from "../../layouts/MainLayout";
+import { RootStore } from "../store/RootStore";
 
 export async function getServerSideProps() {
   const res = await axios(`http://localhost:3000/api/cat-info`);
@@ -19,11 +22,12 @@ interface ICatData {
   type: string;
 }
 
-export default function CatPage({ data }: { data: ICatData }) {
-  const [catImg, setCatImg] = useState<string | undefined>(undefined);
+const CatPage = observer(({ data }: { data: ICatData }) => {
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/cat-img`).then((res) => setCatImg(res.data));
+    RootStore.cat.loadCatImage(id as string);
   }, []);
 
   return (
@@ -41,9 +45,13 @@ export default function CatPage({ data }: { data: ICatData }) {
             <CatInfoLine key={nanoid()} info={info} />
           ))}
 
-          {catImg ? <CatImg url={catImg} /> : <Loader />}
+          {RootStore.cat.status === "loading" && <Loader />}
+          {RootStore.cat.status === "error" && <h2>No cat image 🐈</h2>}
+          {RootStore.cat.status === "success" && <CatImg url={RootStore.cat.catImg} />}
         </div>
       </MainLayout>
     </div>
   );
-}
+});
+
+export default CatPage;
