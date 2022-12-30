@@ -1,6 +1,7 @@
+// https://codesandbox.io/s/thyb0?file=/pages/api/file.js:445-457
 import axios from "axios";
 import { clsx } from "clsx";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export const textStyle = "text-slate-500 hover:text-slate-100";
 export const outlineStyle = "outline-none hover:outline-none hover:outline-4 active:outline-none";
@@ -11,11 +12,9 @@ const uploadCat = () => {
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
 
-  //
   const uploadToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
-
       setImage(i);
       setCreateObjectURL(URL.createObjectURL(i));
     }
@@ -24,16 +23,7 @@ const uploadCat = () => {
   const uploadToServer = async (event) => {
     const body = new FormData();
     body.append("file", image);
-    const response = await fetch("http://localhost:3000/api/cat-img-upload", {
-      method: "POST",
-      body,
-    });
-    // axios
-    //   .post("http://localhost:3000/api/cat-img-upload", {
-    //     method: "POST",
-    //     body,
-    //   })
-    //   .then((res) => console.log(res));
+    axios.post("http://localhost:3000/api/cat-img-upload", body).then((res) => console.log(res));
   };
 
   return (
@@ -45,7 +35,7 @@ const uploadCat = () => {
         type="submit"
         onClick={uploadToServer}
       >
-        ⇑ Send to server
+        ⇑ Upload
       </button>
     </>
   );
