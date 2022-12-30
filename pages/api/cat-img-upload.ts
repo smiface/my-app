@@ -26,14 +26,6 @@ export const config = {
   },
 };
 
-const post = async (req, res) => {
-  const form = new formidable.IncomingForm();
-  form.parse(req, async function (err, fields, files) {
-    await saveFile(files.file);
-    return res.status(201).send("");
-  });
-};
-
 const saveFile = async (file) => {
   const data = fs.readFileSync(file._writeStream.path);
   fs.writeFileSync(`./db/${file.originalFilename}`, data);

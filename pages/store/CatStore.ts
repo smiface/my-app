@@ -10,7 +10,8 @@ export class CatStore {
 
   status: "loading" | "error" | "success" = "loading";
   catImg: string = "";
-  
+  uploadCatImg: string | null = null;
+  uploadCatCreateObjectURL: any | null = null;
 
   loadCatImage(id: string) {
     axios.post(`http://localhost:3000/api/cat-img`, { catId: id }).then((res) => {
@@ -23,4 +24,18 @@ export class CatStore {
       }
     });
   }
+
+  uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+      this.uploadCatImg = i;
+      this.uploadCatCreateObjectURL = URL.createObjectURL(this.uploadCatImg);
+    }
+  };
+
+  uploadToServer = async (event) => {
+    const body = new FormData();
+    body.append("file", this.uploadCatImg);
+    axios.post("http://localhost:3000/api/cat-img-upload", body).then((res) => console.log(res));
+  };
 }
