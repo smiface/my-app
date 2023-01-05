@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
-import React, { useCallback, useEffect, useLayoutEffect } from "react";
+import React, { FC, useCallback, useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import LoginPage from "./login";
 import { RootStore } from "./store/RootStore";
@@ -13,6 +13,10 @@ import { observer } from "mobx-react-lite";
 //   return { props: { isAuth } };
 // }
 
+const LogoutButton: FC = () => {
+  return <button onClick={() => RootStore.auth.logout()}>Logout</button>;
+};
+
 export const AuthProvider: React.FC<{ children: any }> = observer(({ children }) => {
   useEffect(() => {
     RootStore.auth.tryAuthByToken();
@@ -20,6 +24,7 @@ export const AuthProvider: React.FC<{ children: any }> = observer(({ children })
 
   return (
     <div className="w-100 h-screen bg-slate-900 font-medium text-slate-200">
+      {!RootStore.auth.loading && RootStore.auth.isAuth && <LogoutButton />}
       {RootStore.auth.loading && <Loader />}
       {!RootStore.auth.loading && RootStore.auth.isAuth && <>{children}</>}
       {!RootStore.auth.loading && !RootStore.auth.isAuth && <LoginPage />}

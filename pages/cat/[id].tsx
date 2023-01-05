@@ -48,6 +48,23 @@ const CatPage = observer(({ data }: { data: ICatData }) => {
         <div>
           <h1>Cat page</h1>
 
+          <button
+            className="m-2 p-2 border-2 border-cyan-200"
+            onClick={() => {
+              axios.get("http://localhost:3000/api/test").then((res) => {
+                interface ITest {
+                  status: number;
+                  id: string;
+                }
+
+                const d = res.data satisfies ITest;
+                console.log(d);
+              });
+            }}
+          >
+            zxc
+          </button>
+
           {Object.entries(data).map((info) => (
             <CatInfoLine key={nanoid()} info={info} />
           ))}

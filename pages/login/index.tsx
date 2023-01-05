@@ -1,27 +1,17 @@
 import axios from "axios";
 import clsx from "clsx";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { RootStore } from "../store/RootStore";
 
 export default function LoginPage() {
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const togglePasswordView = () => setShowPassword(!showPassword);
-  
+
   const submitLogin = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    axios
-      .post(`http://localhost:3000/api/login`, {
-        login: loginRef?.current?.value && loginRef.current.value,
-        password: passwordRef?.current?.value && passwordRef.current.value,
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === 200) {
-          localStorage.setItem("refreshToken", res.data.refreshToken);
-          localStorage.setItem("sessionToken", res.data.sessionToken);
-        }
-      });
+    RootStore.auth.submitLogin(loginRef?.current?.value, passwordRef.current?.value);
   };
 
   useEffect(() => passwordRef?.current?.focus(), [showPassword]);

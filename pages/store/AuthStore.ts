@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const { makeAutoObservable } = require("mobx");
+type TCurrent = HTMLInputElement | null;
 
 export class AuthStore {
   RootStore: any;
@@ -10,6 +11,10 @@ export class AuthStore {
 
   isAuth = false;
   loading = true;
+
+  setLoading(value: boolean) {
+    this.loading = value;
+  }
 
   setAuth(value: boolean) {
     this.isAuth = value;
@@ -25,13 +30,42 @@ export class AuthStore {
         } else {
           this.loading = false;
           this.isAuth = true;
-          console.log(res.data.status);
+          console.log(`okay`, res.data.status);
         }
       });
-      // setTimeout(() => {
-      //   this.loading = false;
-      //   this.isAuth = true;
-      // }, 500);
+    } else {
+      setTimeout(() => {
+        this.loading = false;
+        this.isAuth = false;
+      }, 500);
     }
+  }
+
+  submitLogin(login: string | undefined, password: string | undefined) {
+    if (!login || !password) return;
+
+    axios
+      .post(`http://localhost:3000/api/login`, {
+        login: login,
+        password: password,
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          localStorage.setItem("refreshToken", res.data.refreshToken);
+          localStorage.setItem("sessionToken", res.data.sessionToken);
+          this.loading = false;
+          this.isAuth = true;
+          return;
+        }
+        this.loading = false;
+        this.isAuth = false;
+      });
+  }
+
+  logout() {
+    this.loading = false;
+    this.isAuth = false;
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("sessionToken");
   }
 }
